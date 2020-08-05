@@ -15,3 +15,16 @@ O projeto está sendo construído utilizando as seguintes tecnologias:
 - React
 - ReactJS
 - React Native
+- Banco de Dados sqlite3
+
+
+## Funcionalidades do back-end
+
+### Conexões
+[x] - Rota para listar total de conexões realizadas;<br/>
+[x] - Rota para criar uma nova conexão;
+
+### Aulas
+[x] - Rota para criar uma aula;<br/>
+[x] - Rota para listar aulas;<br/>
+[x]  - Filtrar por matéria, dia da semana e horário;
