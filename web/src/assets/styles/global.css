@@ -19,7 +19,8 @@
   --color-button-text: #FFFFFF;
   --color-box-base: #FFFFFF;
   --color-box-footer: #FAFAFC;
-
+  --color-search: #6889F2;
+  --color-search-dark: #5d7cde;
 }
 
 *{

@@ -1,4 +1,5 @@
 import React, {useState, FormEvent} from 'react'
+import { useHistory } from 'react-router-dom';
 
 import PageHeader from '../../components/PageHeader';
 import Input from '../../components/Input';
@@ -12,6 +13,7 @@ import warningImg from '../../assets/images/icons/warning.svg';
 import './styles.css';
 
 function TeacherForm(){
+  const history = useHistory();
   const [name,setName] = useState('');
   const [avatar,setAvatar] = useState('');
   const [whatsapp,setWhatsapp] = useState('');
@@ -30,16 +32,33 @@ function TeacherForm(){
     ])
   }
 
+  function handleSetScheduleItemValue(position:number,field:string,value:string){
+    const updateScheduleItems = scheduleItems.map((scheduleItem, index) => {
+      if(index === position){
+        return { ...scheduleItem, [field]:value};
+      }
+      return scheduleItem;
+    });
+
+    setScheduleItems(updateScheduleItems);
+  }
+
   function handleCreateClass(e:FormEvent){
     e.preventDefault();
-    console.log(
+    api.post('/classes',{
       name,
       avatar,
       whatsapp,
       bio,
       subject,
-      cost
-    );
+      cost: Number(cost),
+      schedule: scheduleItems
+    }).then(()=>{
+      alert('Cadastro realizado com sucesso!');
+      history.push('/');
+    }).catch(()=>{
+      alert('Erro no Cadastro!');
+    });
   }
 
   return (
@@ -56,27 +75,27 @@ function TeacherForm(){
           name="name"
           label="Nome Completo"
           type="text" 
-          value={name} 
+          defaultValue={name} 
           onChange={(e) => setName(e.target.value)}
           />
           <Input 
           name="avatar"
           label="Avatar" 
           type="text"
-          value={avatar} 
+          defaultValue={avatar} 
           onChange={(e) => setAvatar(e.target.value)}
           />
           <Input 
           name="whatsapp"
           label="WhatsApp" 
           type="text"
-          value={whatsapp} 
+          defaultValue={whatsapp} 
           onChange={(e) => setWhatsapp(e.target.value)}
           />        
           <Textarea
           name="bio"
           label="Biografia"
-          value={bio} 
+          defaultValue={bio} 
           onChange={(e) => setBio(e.target.value)}
           />
         </fieldset>
@@ -86,7 +105,7 @@ function TeacherForm(){
           <Select
           name="subject"
           label="Matéria"
-          value={subject}
+          defaultValue={subject}
           onChange={(e) => setSubject(e.target.value)}
           options={[
             { value: 'Artes', label: 'Artes' },
@@ -98,7 +117,7 @@ function TeacherForm(){
           name="cost"
           label="Custo de sua hora por aula"
           type="text"
-          value={cost}
+          defaultValue={cost}
           onChange={(e)=> setCost(e.target.value)}
           />
         </fieldset>
@@ -110,10 +129,12 @@ function TeacherForm(){
           </legend>
           { scheduleItems.map((scheduleItem,index) => {
             return(
-              <div  key={index} className="schedule-item">
+              <div  key={String(index)} className="schedule-item">
                 <Select
                 name="week_day"
                 label="Dia da Semana"
+                defaultValue={scheduleItem.week_day}
+                onChange={e => handleSetScheduleItemValue(index, 'week_day',e.target.value)}
                 options={[
                   { value: '0', label: 'Domingo' },
                   { value: '1', label: 'Segunda-Feira' },
@@ -124,8 +145,20 @@ function TeacherForm(){
                   { value: '6', label: 'Sábado-Feira' },
                 ]}
                 />
-                <Input name="from" label="Das" type="time" />
-                <Input name="to" label="Até" type="time" />
+                <Input
+                name="from"
+                label="Das"
+                type="time"
+                defaultValue={scheduleItem.from}
+                onChange={e => handleSetScheduleItemValue(index, 'from',e.target.value)}
+                />
+                <Input
+                name="to"
+                label="Até"
+                type="time"
+                defaultValue={scheduleItem.to}
+                onChange={e => handleSetScheduleItemValue(index, 'to',e.target.value)}
+                />
               </div>
             );
           }) }
