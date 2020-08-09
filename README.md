@@ -30,13 +30,13 @@ O projeto está sendo construído utilizando as seguintes tecnologias:
 [x]  - Filtrar por matéria, dia da semana e horário;
 
 # Versão 2.0 Proffy
-[] - Novas Telas 
-[] - Autenticação de usuários
-[] - Recuperação de senhas
-[] - Perfil do proffy
-[] - Splash Screen no React Native
-[] - Paginação na listagem de proffys
-[] - Exibindo horários disponíveis dos proffys
-[] - Salvando seus proffys favoritos
-[] - Logout da aplicação
-[] - Deploy da aplicação
+[ ] - Novas Telas<br/>
+[ ] - Autenticação de usuários<br/>
+[ ] - Recuperação de senhas<br/>
+[ ] - Perfil do proffy<br/>
+[ ] - Splash Screen no React Native<br/>
+[ ] - Paginação na listagem de proffys<br/>
+[ ] - Exibindo horários disponíveis dos proffys<br/>
+[ ] - Salvando seus proffys favoritos<br/>
+[ ] - Logout da aplicação<br/>
+[ ] - Deploy da aplicação<br/>
